@@ -1,0 +1,21 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class MemberDAO {
+	Connection conn = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+	public static Connection getConnection() throws Exception {
+		Class.forName("oracle.jdbc.OracleDriver");
+		Connection con = DriverManager
+				.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "sys1234");
+		return con;
+	}
+	
+}

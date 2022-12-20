@@ -1,0 +1,56 @@
+package controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DAO.MemberDAO;
+
+
+@WebServlet("/")
+public class MemberController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    public MemberController() {
+        super();
+        
+    }
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPro(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPro(request, response);
+	}
+	
+	protected void doPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String context = request.getContextPath(); //tomcat의 context path 가져온다. server.xml의 /HRD_1234 
+		String command = request.getServletPath(); //경로의 맨 끝 파일명을 가져온다.-> http://localhost:8090/HRD_1234/index.jsp
+		String site = null;
+		
+		System.out.println(context + ", " + command);
+		
+		MemberDAO member = new MenberDAO();
+		
+		switch(command) {
+		case "/home":
+			site = "index.jsp";
+			break;
+		case "/insert":
+			site = member.insert(request, response);
+			break;
+		case "/list":
+			site = member.selectAll(request, response);
+			break;
+		}
+		getServletContext().getRequestDispatcher("/" + site).forward(request, response);
+		
+	}
+
+
+}

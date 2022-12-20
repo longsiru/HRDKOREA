@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+ function fn_submit(){
+	var fn = dicument.frm;
+	
+	if(fn.custno.value == ""){ //input에 값이 빈값인지 확인체크
+		alert("회원성명이 입력되지 않았습니다.");
+		fn.custname.focus(); //포커싱추가
+		return false; //함수 끝내기
+	}
+}

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+* {
+	margin:0;
+	padding:0;
+	
+}
+
+header{
+	top:0;
+	height:150px;
+	line-height:150px;
+	width:100%;
+	background:bluee;
+	text-align: center;
+	font-size: 35px;
+	font-weight: 900;
+	color:#fff;
+}
+
+nav ul{
+	height:50px;
+	line-height:50px;
+	width:100%;
+	backgrund: shyblue;
+	
+}
+
+nav ul li{
+	
+}
+
+
+a{
+	
+}
