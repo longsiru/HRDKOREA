@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DTO.Member;
+import DTO.Money;
 
 public class MemberDAO {
 	Connection conn = null;
@@ -93,7 +94,7 @@ public class MemberDAO {
 	
 	//회원목록조회/수정
 	public String selectAll(HttpServletRequest request, HttpServletResponse response) {
-		ArrayList<Member>list = new ArrayList<Member>();
+		ArrayList<Member> list = new ArrayList<Member>();
 		try {
 			conn = getConnection();
 			//太长了用sql+= "DECODE()"加起来
@@ -127,6 +128,42 @@ public class MemberDAO {
 		}
 		return "list.jsp";
 		
+	}
+	
+	//회원매출
+	public String selectResult(HttpServletRequest request, HttpServletResponse response) {
+		ArrayList<Money> list = new ArrayList<Money>();
+		try {
+			conn = getConnection();
+			String sql = "select m1.custno, m1.custname, DECODE(grade, 'A', 'VIP', 'B', '일반', '직원') grade, sum(m2.price) price "
+					+ "from member_tbl_02 m1, money_tbl_02 m2 "
+					+ "where m1.custno = m2.custno "
+					+ "group by (m1.custno, m1.custname, grade) "
+					+ "order by price desc";
+			
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Money money = new Money();
+				money.setCustno(rs.getInt(1));
+				money.setCustname(rs.getString(2));
+				money.setGrade(rs.getString(3));
+				money.setPrice(rs.getInt(4));
+				
+				list.add(money);
+			}
+			request.setAttribute("list", list);
+			
+			conn.close();
+			ps.close();
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "result.jsp";
 	}
 	
 	//회원정보수정(先拿来数据 데이터를 먼저 가져와)
@@ -208,4 +245,24 @@ public class MemberDAO {
 		return result;
 			   
 	}
+	
+	public int delete(HttpServletRequest request, HttpServletResponse response) {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String custno = request.getParameter("custno");
+			String sql = "delete from member_tbl_02 where custno=" + custno;
+			
+			ps = conn.prepareStatement(sql);
+			result = ps.executeUpdate(); //쿼리문 실행
+			
+			conn.close();
+			ps.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

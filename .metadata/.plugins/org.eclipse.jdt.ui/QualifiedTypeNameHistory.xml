@@ -9,4 +9,8 @@
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="DTO.Member"/>
+    <fullyQualifiedTypeName name="DAO.MemberDAO"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+    <fullyQualifiedTypeName name="DTO.Money"/>
 </qualifiedTypeNameHistroy>

@@ -57,6 +57,9 @@ public class MemberController extends HttpServlet {
 		case "/modify":
 			site = member.modify(request, response);
 			break;
+		case "/result":
+			site = member.selectResult(request, response); //DAO에서 selectResult method create.
+			break;
 		case "/update":
 			int result1 = member.update(request, response);
 			response.setContentType("text/html; charset=UTF-8");
@@ -69,6 +72,23 @@ public class MemberController extends HttpServlet {
 			}else {
 				out.println("<script>");
 				out.println("alert('수정 실패!'); location.href= '" + context +"'; ");  //location.href= '/hrd_1234';
+				out.println("</script>");
+				out.flush();
+			}
+			break;
+			
+		case "/delete":
+			int result2 = member.delete(request, response);
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter();  //上面已经生成了，直接用对象就好。
+			if(result2 == 1) {  //update success
+				out.println("<script>");
+				out.println("alert('회원삭제가 완료 되어습니다!'); location.href= '" + context +"'; ");  //location.href= '/hrd_1234';
+				out.println("</script>");
+				out.flush();
+			}else {
+				out.println("<script>");
+				out.println("alert('삭제실패!'); location.href= '" + context +"'; ");  //location.href= '/hrd_1234';
 				out.println("</script>");
 				out.flush();
 			}

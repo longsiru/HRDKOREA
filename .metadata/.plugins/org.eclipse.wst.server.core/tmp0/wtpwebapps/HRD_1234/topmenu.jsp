@@ -11,7 +11,7 @@
 	<nav>
 		<ul>
 			<li><a href="add">회원등록</a></li>
-			<li><a href="list">히원목록조회/수정</a></li>
+			<li><a href="list">회원목록조회/수정</a></li>
 			<li><a href="result">회원매출조회</a></li>
 			<li><a href="home">홈으로</a></li>
 		</ul>
